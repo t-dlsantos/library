@@ -22,7 +22,7 @@ body {
 header {
     display: flex;
     align-items: center;
-    height: 90px;
+    min-height: 90px;
     background-color: #FFFFFF;
     box-shadow: 0px 3px 5.5px 0px rgba(0, 0, 0, 0.25);
 }
@@ -33,8 +33,9 @@ header {
     justify-content: space-between;
     flex-wrap: wrap;
     width: 840px;
-    padding: 0 16px;
+    padding: 16px 16px;
     margin: 0 auto;
+    gap: 20px;
 }
 
 button {
@@ -59,6 +60,7 @@ button {
 
 .welcome-container {
     text-align: center;
+    padding: 0 16px;
 }
 
 .welcome-container h1 {
@@ -75,4 +77,68 @@ button {
     border-radius: 8px;
     font-size: 16px;
     font-weight: 700;
+}
+
+.books-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(203px, 2fr)); /* Alteração aqui */
+    gap: 40px;
+    max-width: 840px; /* Adicione o valor máximo desejado */
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.card {
+    /* width: 203px; */
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.book-img {
+    background: no-repeat url(https://m.media-amazon.com/images/I/51uGVzNXipL._SY445_SX342_.jpg) top/cover;
+    height: 234px;
+    width: 100%;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+}
+
+.book-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 16px;
+}
+
+.book-info .left {
+    text-align: center;
+}
+
+.number-pages {
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.pages {
+    font-size: 12px;
+}
+
+.status {
+    width: 13.945px;
+    height: 13.945px;
+    border-radius: 50%;
+    background-color: var(--success-color);
+    box-shadow: 0px 0px 4px var(--success-color);
+    display: inline-block;
+}
+
+.book-info .right {
+    font-size: 12px;
+    text-align: center;
+}
+
+.title {
+    font-weight: 600;
+    margin-bottom: 6px;
 }
