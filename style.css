@@ -4,6 +4,7 @@
     --primary-color-normal: #9E85E4;
     --primary-color-darker: #372f50;
     --gray-color: #F1F1F1;
+    --gray-color-2: #BAC2D0;
     --success-color: #9EE485;
     --danger-color: #E48585;
 }
@@ -81,7 +82,7 @@ button {
 
 .books-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(203px, 2fr)); /* Alteração aqui */
+    grid-template-columns: repeat(auto-fill, minmax(203px, 2fr)); /* Alteração aqui */
     gap: 40px;
     max-width: 840px; /* Adicione o valor máximo desejado */
     width: 100%;
@@ -90,10 +91,47 @@ button {
 }
 
 .card {
-    /* width: 203px; */
+    position: relative;
     background-color: #FFFFFF;
     border-radius: 8px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+}
+
+.card:hover .book-img {
+    filter: brightness(50%) blur(2px);
+}
+
+.hover-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear;
+}
+
+.hover-options button  {
+    padding: 6px 22px;
+    border-radius: 8px;
+    font-weight: 700;
+}
+
+.read-select {
+    background-color: var(--danger-color);
+}
+
+.remove-option {
+    background-color: var(--gray-color-2);
+}
+
+.card:hover .hover-options {
+    visibility: visible;
+    opacity: 1;
 }
 
 .book-img {
