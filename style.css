@@ -5,6 +5,7 @@
     --primary-color-darker: #372f50;
     --gray-color: #F1F1F1;
     --gray-color-2: #BAC2D0;
+    --gray-color-3: #D9D9D9;
     --success-color: #9EE485;
     --danger-color: #E48585;
 }
@@ -180,3 +181,79 @@ button {
     font-weight: 600;
     margin-bottom: 6px;
 }
+
+dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 299px;
+    padding: 42px;
+    background-color: var(--gray-color);
+    border: none;
+    border-radius: 8px;
+    box-shadow: -13px 15px 39.5px -5px rgba(0, 0, 0, 0.25);
+    display: none;
+}
+
+dialog[open] {
+    display: block;
+}
+
+::backdrop {
+    background-color: black;
+    opacity: 0.40;
+}
+
+.book-form h1 {
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.inputs > div:not(:last-child) {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.inputs > div:not(:last-child) > input{
+    border: none;
+    background-color: var(--gray-color-3);
+    height: 29px;
+    font-size: 10px;
+    padding: 8px;
+}
+
+input[type="checkbox"] {
+    accent-color: var(--primary-color-normal)
+}
+
+.inputs div:last-child {
+    display: flex;
+    gap: 4px;
+}
+
+input[type="submit"] {
+    background-color: var(--primary-color-normal);
+    border: none;
+    color: #FFFFFF;
+    width: 100%;
+    padding: 11px 0;
+    margin-top: 16px;
+    font-size: 12px;
+    border-radius: 4px;
+    font-weight: 700;
+}
+
+label {
+    font-weight: 500;
+    font-size: 10px;
+}
+
