@@ -22,11 +22,11 @@
                     <div class="inputs">
                         <div>
                             <label for="title">Title</label>
-                            <input type="text" id="title" name="title_book" required>
+                            <input type="text" id="title" name="title_book" maxlength="50" required>
                         </div>
                         <div>
                             <label for="author">Author</label>
-                            <input type="text" id="author" name="author_book" required>
+                            <input type="text" id="author" name="author_book" maxlength="50" required>
                         </div>
                         <div>
                             <label for="pages">Pages</label>
@@ -34,7 +34,7 @@
                         </div>
                         <div>
                             <label for="image">Book Cover Link</label>
-                            <input type="text" id="image" name="image_link">
+                            <input type="url" id="image" name="image_link">
                         </div>
                         <div>
                             <input type="checkbox" name="read" id="read">
@@ -54,24 +54,6 @@
         </section>
         <section class="books-section">
             <div class="books-container">
-                <div class="card">
-                    <img src="https://m.media-amazon.com/images/I/51uGVzNXipL._SY445_SX342_.jpg" class="book-img"></img>
-                    <div class="hover-options">
-                        <button class="read-select">Not read</button>
-                        <button class="remove-option">Remove</button>
-                    </div>
-                    <div class="book-info">
-                        <div class="left">
-                            <span class="status-true"></span>
-                            <p class="number-pages">305</p>
-                            <p class="pages">pages</p>
-                        </div>
-                        <div class="right">
-                            <p class="title">Harry Potter and the Philosopher's Stone</p>
-                            <p class="author">J.K. Rowling</p>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
     </main>

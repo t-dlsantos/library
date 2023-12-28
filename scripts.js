@@ -11,9 +11,13 @@ const imageBook = document.getElementById("image");
 const readBook = document.getElementById("read");
 const bookForm = document.getElementById("book-form");
 
+const readBookSelection = document.querySelectorAll('.read-book-selection');
+const removeBookSelection = document.querySelectorAll('.remove-option');
+
 const myLibrary = [];
 
-function Book(bookName, bookAuthor, bookPages, bookImage, bookRead) {
+function Book(bookID, bookName, bookAuthor, bookPages, bookImage, bookRead) {
+  this.bookId = bookID;
   this.bookName = bookName;
   this.bookAuthor = bookAuthor;
   this.bookPages = bookPages;
@@ -23,6 +27,7 @@ function Book(bookName, bookAuthor, bookPages, bookImage, bookRead) {
 
 function addBookToLibrary() {
   const newBook = new Book(
+    generateId(),
     titleBook.value,
     authorBook.value,
     pagesBook.value,
@@ -32,30 +37,33 @@ function addBookToLibrary() {
   
   myLibrary.push(newBook);
   bookForm.reset();
-  displayBooks();
+  makeBookCard(newBook);
+}
+
+function generateId() {
+  return myLibrary.length;
 }
 
 addBookButton.addEventListener("click", (e) => {
   dialog.showModal();
 });
 
-window.addEventListener('load', () => {
-  const newBook = new Book(
-    "Harry Potter and the Philosopher's Stone",
-    "J.K. Rowling",
-    305,
-    "https://m.media-amazon.com/images/I/51uGVzNXipL._SY445_SX342_.jpg",
-    true
-  );
+// window.addEventListener('load', () => {
+//   const newBook = new Book(
+//     0,
+//     "Harry Potter and the Philosopher's Stone",
+//     "J.K. Rowling",
+//     305,
+//     "https://m.media-amazon.com/images/I/51uGVzNXipL._SY445_SX342_.jpg",
+//     true
+//   );
   
-  myLibrary.push(newBook);
-  displayBooks();
-})
+//   myLibrary.push(newBook);
+//   displayBooks();
+// })
 
 function displayBooks() {
-  myLibrary.forEach((book) => {
-    makeBookCard(book); 
-  })
+    makeBookCard(book);
 }
 
 function makeBookCard(book) {
@@ -64,11 +72,14 @@ function makeBookCard(book) {
   const bookInfo = document.createElement('div');
   const bookInfoLeft = document.createElement('div');
   const bookInfoRight = document.createElement('div');
-  const status = document.createElement('sapn');
+  const status = document.createElement('span');
   const numberPages = document.createElement('p');
   const pages = document.createElement('p');
   const author = document.createElement('p');
   const title = document.createElement('p')
+  const hoverOptions = document.createElement('div');
+  const readSelectButton = document.createElement('button');
+  const removeOptionButton = document.createElement('button');
 
   card.classList.add('card');
   bookImg.classList.add('book-img');
@@ -79,17 +90,28 @@ function makeBookCard(book) {
   bookInfoRight.classList.add('right');
   author.classList.add('author');
   title.classList.add('title');
-
-  bookImg.src = 'https://m.media-amazon.com/images/I/51uGVzNXipL._SY445_SX342_.jpg';
+  hoverOptions.classList.add('hover-options');
+  readSelectButton.classList.add(book.bookRead ? 'read-select-true' : 'read-select-false');
+  readSelectButton.classList.add('read-book-selection');
+  removeOptionButton.classList.add('remove-option');
+  
+  card.dataset.id = book.bookId;
+  bookImg.src = book.bookImage;
+  book
   status.classList.add(book.bookRead ? 'status-true' : 'status-false');
   numberPages.textContent = book.bookPages;
   pages.textContent = 'pages';
   author.textContent = book.bookAuthor;
   title.textContent = book.bookName;
-  console.log(book.bookTitle);
+  readSelectButton.textContent = book.bookRead ? 'Read' : 'Not Read';
+
+  removeOptionButton.textContent = 'Remove';
 
   card.appendChild(bookImg);
+  card.appendChild(hoverOptions);
   card.appendChild(bookInfo);
+  hoverOptions.appendChild(readSelectButton);
+  hoverOptions.appendChild(removeOptionButton);
   bookInfo.appendChild(bookInfoLeft);
   bookInfo.appendChild(bookInfoRight);
   bookInfoLeft.appendChild(status);
@@ -109,3 +131,34 @@ confirmButton.addEventListener("click", (e) => {
     }, 100);
   }
 })
+
+booksContainer.addEventListener("click", (event) => {
+  if (event.target.classList.contains('read-book-selection')) {
+    toggleReadStatus(event.target);
+  } else if (event.target.classList.contains('remove-option')) {
+    const bookCard = event.target.closest('.card');
+
+    if (bookCard) {
+      const bookId = bookCard.dataset.id;
+
+
+      bookCard.remove();
+
+      if (bookId !== undefined) {
+        myLibrary.splice(bookId, 1);
+      }
+    }
+  }
+});   
+
+function toggleReadStatus(element) {
+  if (element.classList.contains('read-select-true')) {
+    element.classList.remove('read-select-true');
+    element.classList.add('read-select-false');
+    element.textContent = 'Not Read';
+  } else {
+    element.classList.remove('read-select-false');
+    element.classList.add('read-select-true');
+    element.textContent = 'Read';
+  }
+}
