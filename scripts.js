@@ -25,6 +25,10 @@ function Book(bookID, bookName, bookAuthor, bookPages, bookImage, bookRead) {
   this.bookRead = bookRead;
 }
 
+Book.prototype.toggleReadStatus = function() {
+  this.bookRead = this.bookRead ? false : true;
+}
+
 function addBookToLibrary() {
   const newBook = new Book(
     generateId(),
@@ -47,20 +51,6 @@ function generateId() {
 addBookButton.addEventListener("click", (e) => {
   dialog.showModal();
 });
-
-// window.addEventListener('load', () => {
-//   const newBook = new Book(
-//     0,
-//     "Harry Potter and the Philosopher's Stone",
-//     "J.K. Rowling",
-//     305,
-//     "https://m.media-amazon.com/images/I/51uGVzNXipL._SY445_SX342_.jpg",
-//     true
-//   );
-  
-//   myLibrary.push(newBook);
-//   displayBooks();
-// })
 
 function displayBooks() {
     makeBookCard(book);
@@ -133,15 +123,13 @@ confirmButton.addEventListener("click", (e) => {
 })
 
 booksContainer.addEventListener("click", (event) => {
+  const bookCard = event.target.closest('.card');
+  const bookId = bookCard.dataset.id;
+
   if (event.target.classList.contains('read-book-selection')) {
-    toggleReadStatus(event.target);
+    myLibrary[bookId].toggleReadStatus();
+    toggleReadStatus(event.target);  
   } else if (event.target.classList.contains('remove-option')) {
-    const bookCard = event.target.closest('.card');
-
-    if (bookCard) {
-      const bookId = bookCard.dataset.id;
-
-
       bookCard.remove();
 
       if (bookId !== undefined) {
@@ -149,16 +137,22 @@ booksContainer.addEventListener("click", (event) => {
       }
     }
   }
-});   
+);   
 
 function toggleReadStatus(element) {
   if (element.classList.contains('read-select-true')) {
     element.classList.remove('read-select-true');
     element.classList.add('read-select-false');
     element.textContent = 'Not Read';
+    const spanStatus = document.querySelector('.status-true');
+    spanStatus.classList.remove('status-true');
+    spanStatus.classList.add('status-false');
   } else {
     element.classList.remove('read-select-false');
     element.classList.add('read-select-true');
     element.textContent = 'Read';
+    const spanStatus = document.querySelector('.status-false');
+    spanStatus.classList.remove('status-false');
+    spanStatus.classList.add('status-true');
   }
 }
